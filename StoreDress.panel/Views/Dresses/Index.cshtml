@@ -1,0 +1,63 @@
+﻿@model List<DressViewModel>
+@{
+    ViewData["Title"] = "Kıyafet Listesi";
+}
+
+<h1>Kıyafet Listesi</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Yeni Kıyafet Oluştur</a>
+</p>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Name)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().CategoryId)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DesignerId)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Price)</th>
+            <th>Seçilen</th>
+            <th>Çok Satan</th>
+            <th width="120px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="~/uploads/dress/@item.ImageURL" target="_blank">
+                        <img src="~/uploads/dress/@item.ImageURL" alt="@item.Name" height="28px" />
+                    </a>
+                </td>
+                <td>@item.Name</td>
+                <td>@item.CategoryName</td>
+                <td>@item.DesignerName</td>
+                <td>@item.Price</td>
+                <td>
+                    @if (item.IsSelected)
+                    {
+                        <span class="badge bg-success">Evet</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Hayır</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IsBestSeller)
+                    {
+                        <span class="badge bg-success">Evet</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">Hayır</span>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-warning" asp-action="Edit" asp-route-id="@item.Id">Düzenle</a>
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

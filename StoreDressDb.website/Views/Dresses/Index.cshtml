@@ -1,0 +1,50 @@
+﻿@model DressViewModel
+
+@{
+    ViewData["Title"] = "Dress";
+}
+
+<span class="text-dark fs-2">@Model.Dress.Name <small class="text-dark fs-6">@Model.Designer.NameSurname</small></span>
+<hr class="text-success" />
+<div class="row">
+    <div class="col-4">
+        <img src="https://localhost:7078/uploads/dress/@Model.Dress.ImageURL" alt="" width="400" height="600" />
+    </div>
+
+    <div class="col-8">
+        <div class="form-group">
+            <span class="text-dark fs-3">@Model.Dress.Name</span>
+        </div>
+        <div class="form-group">
+            <span class="text-dark fs-6">@Model.Designer.NameSurname</span> |
+            <span class="text-dark fs-6">@Model.Category.Name</span>
+        </div>
+        <div class="form-group">
+            <strong class="text-success fs-1">@Model.Dress.Price.ToString("n0")</strong>
+            <span class="text-success fs-6">,00</span>
+            <span class="text-success fs-1">₺</span>
+        </div>
+        <div class="form-group mt-5">
+            Açıklama
+            <hr />
+            @Html.Raw(Model.Dress.Description)
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <h4>Sizin için seçtiklerimiz</h4>
+    <hr />
+</div>
+<div class="row">
+    @foreach (var dress in Model.Dresses)
+    {
+        <div class="card col-md-3 m-2 text-center" style="width: 18rem;">
+            <img src="https://localhost:7078/uploads/dress/@dress.ImageURL" class="card-img-top mx-auto mt-3" alt="..." style="height:350px; width:250px;">
+            <div class="card-body">
+                <h5 class="card-title">@dress.Name</h5>
+                <h3 class="card-text text-warning">@dress.Price ₺</h3>
+                <a asp-controller="Dresses" asp-action="Index" asp-route-id="@dress.Id" class="btn btn-primary">Detaylı Bilgi</a>
+            </div>
+        </div>
+    }
+</div>
